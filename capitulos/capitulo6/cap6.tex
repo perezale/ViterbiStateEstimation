@@ -1,0 +1,36 @@
+\selectlanguage{spanish}
+\let\textcircled=\pgftextcircled
+\chapter {Conclusiones y trabajos futuros}
+\label{chap:conclusiones}
+
+El proyecto abarca diferentes tecnologías, métodos y componentes. Los resultados obtenidos permiten sentar una base como herramienta de evaluación de algoritmos de estimación para el tráfico vehicular.
+
+En lo que refiere a la extensibilidad de la plataforma, se considera que está resuelta a través de los mecanismos de herencia, especialización y parametrización de la arquitectura.
+
+La biblioteca seleccionada para el uso del algoritmo de Viterbi \textit{Jahmm} se comporta de forma eficiente, ya que la complejidad de los algoritmos involucrados está dada por las demostraciones teóricas de los mismos. En las extensiones implementadas, se optó por mejorar la legibilidad entre comprensión y eficiencia, ya que el propósito de este trabajo es meramente académico.
+
+\section{Trabajos Futuros}
+
+En la línea de tráfico vehicular se requieren aplicaciones en tiempo real, lo cual significa un desafío en el contexto de grandes volúmenes de datos. Debido a esto se proponen mejoras generales y concretas para reducir el consumo de la capacidad de procesamiento.
+
+\subsection{Validación}
+
+Se propone realizar la validación empírica de los métodos de estimación Bluetooth. En este caso se recomienda explorar nuevos dispositivos para captura Bluetooth y evaluar posibles mejoras ad-hoc a los dispositivos existentes ya que, en un escenario de escalabilidad del sistema se puede requerir mayor capacidad analítica en los módulos sensores.
+
+\subsection{Características funcionales}
+Entre las características o \textit{features} que no fueron consideradas en el desarrollo y pueden significar un aporte útil, se destacan: en primer lugar, un módulo de visualización "en vivo", definiendo intervalos de estimación acorde a las necesidades y posibilidades de despliegue de la aplicación. En segundo lugar, mejoras del módulo de estimación para ajustes adicionales, como por ejemplo, configuración de diferentes espacios de estimación en el tiempo (ventanas de estimación). Finalmente, integrar los métodos propuestos, considerando la posibilidad de cambio de tecnología en los sensores.
+
+\subsection{Rendimiento}
+% http://link.springer.com/article/10.1186/1471-2105-14-339
+Algunos autores demuestran mejoras en el rendimiento del Algoritmo de Viterbi \cite{altafparallel,nielsen2011algorithms}, entre las técnicas más comunes, se destaca la modificación Viterbi Look Ahead. Sin embargo, las versiones propuestas presentan mejoras sólo a escalas pequeñas de la cantidad de estados (Biblioteca parredHMMLib \cite{nielsen2011algorithms}).
+
+Para contrarrestar el impacto en rendimiento que implica el aumento de estados en la red, se proponen dos esquemas para disminuir los tiempos de procesamiento de observaciones.
+
+En primer lugar, en el contexto de la aplicación es posible reducir la cantidad de estados del modelo dividiendo la red en regiones, tarea que presenta dos desafíos. Por un lado se deben descartar correctamente las observaciones por fuera de la región. En el caso de GPS se pueden descartar aquellas por fuera de cierto umbral. Las observaciones Bluetooth deberán ser las que correspondan con detectores incidentes sobre la región, es decír, aquellos monitores que tienen al menos un segmento de la region en su rango de detección. Otro desafío es medir y minimizar el error que pueda darse en las conexiones entre regiones.
+
+Sobre la implementación del algoritmo de Viterbi es posible obtener mejoras aplicando paralelismo. El paso paralelizable es el de inicialización, donde se tiene el cálculo para la primera observación $\delta_1$:
+\begin{align*}
+    \delta_1 = p_i*b(O_i) 
+\end{align*}
+
+Finalmente, el paso inductivo del algoritmo no puede ser paralelizado por la actualización de un estado dependiente del estado anterior (Hymel 2011).
